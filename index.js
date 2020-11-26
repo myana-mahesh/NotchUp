@@ -1,15 +1,15 @@
 require("dotenv").config();
 const path = require('path');
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
-const port = process.env.PORT || 3001;
 const mongoose = require("mongoose");
 const moment = require('moment')
 
 app = express();
+const port = process.env.PORT || 3001;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,7 +17,9 @@ app.use(cors());
 app.set('public', path.join(__dirname, 'public'));
 app.set('view engine', 'jade');
 
-
+if (process.env.NODE_ENV == 'production') {
+  app.use(express.static('client/build'));
+}
  app.get('/',(req,res)=>{
     res.send("Welcome to Booking Section")
 });

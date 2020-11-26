@@ -23,7 +23,9 @@ class Forms extends React.Component {
 			dateArray :[],
 			dateFormatArray:[],
 			timeList: [],
-			showTime: false
+			showTime: false,
+			data:[],
+			courseName:[]
 
 		};
 
@@ -38,6 +40,16 @@ class Forms extends React.Component {
 		this.isEligibleDate=this.isEligibleDate.bind(this);
 		this.compareTime = this.compareTime.bind(this);
 		this.handleTime = this.handleTime.bind(this);
+	}
+
+	componentDidMount() {
+		let data=[]
+		console.log("did Mount")
+		axios.get(
+			"https://script.google.com/macros/s/AKfycbzJ8Nn2ytbGO8QOkGU1kfU9q50RjDHje4Ysphyesyh-osS76wep/exec"
+		).then((res) => {
+			this.setState({data:res.data})
+		})		
 	}
 	handleChange(e) {
 		let nam = e.target.name;
@@ -108,21 +120,23 @@ class Forms extends React.Component {
 	//For Getting Data and Storing slots in array
 	async handleCourse(course_id) {
 		console.log(course_id)
-		this.setState({ coursenaem: course_id });
-		const res = await fetch(
-			" https://script.google.com/macros/s/AKfycbzJ8Nn2ytbGO8QOkGU1kfU9q50RjDHje4Ysphyesyh-osS76wep/exec"
-		);
-		const data = await res.json();
-		data.map((d) => {
-			d.slots.map((slot) => { 
-				if (d.course_id == course_id) {
-					this.s.push(slot.slot);
-				}
+		if (course_id != 0) {
+			this.setState({ coursenaem: course_id });
+
+			this.state.data.map((d) => {
+				d.slots.map((slot) => {
+					if (d.course_id == course_id) {
+						this.s.push(slot.slot);
+					}
+				});
 			});
-		});
-		let result = new Date();
-		result.setDate(result.getDate() + 3);
-		this.s.push((result.getTime()) / 1000)
+		}
+		else {
+			this.s = []
+			this.dateFormatArray = [];
+			this.dateArray = [];
+			this.setState({ timeList: [] })
+		}
 		this.compareTime(this.s);
 	}
 
@@ -238,6 +252,8 @@ class Forms extends React.Component {
 								className="form-control mb-2"
 								id="validationTooltip01"
 								placeholder="Ex:10"
+								min="1"
+								max="100"
 								required/>
 						</div>
 					</div>
