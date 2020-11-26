@@ -65,15 +65,13 @@ class Forms extends React.Component {
 				childage: this.state.childage,
 				mobile: this.state.mobile,
 				coursename: this.state.coursenaem,
-				date: (this.state.sdate),
+				date: this.state.sdate,
 				sent: false
 			};
 			if (data) {
 				axios
 					.post("/api/bookings", data)
-					.then((res) => {
-					window.location.href = 'http://www.google.com';
-					window.open('http://www.google.com');	
+					.then((res) => {	
 					console.log(res)
 					res.redirect("/")
 					this.state.sent = true;	
@@ -108,7 +106,9 @@ class Forms extends React.Component {
 
 	//For Setting Date and Creating corresponding TimeArray
 	handleDate(date) {
-		this.setState({sdate:date,timeList:[]})
+		console.log(date)
+		this.setState({ sdate: date, timeList: [] })
+		console.log(this.state.sdate)
 		this.minutes=[]
 		for (let j = 0; j < this.state.dateFormatArray.length; j++){
 			if (this.state.dateFormatArray[j] == moment(date).format("DD/MM/YYYY")) {

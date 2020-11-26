@@ -26,7 +26,10 @@ if (process.env.NODE_ENV == 'production') {
 
 app.post("/api/bookings", (req, res) => {
   let data = req.body;
-
+  let ttime=moment(data.date).valueOf()
+  ttime=new Date(ttime + 19800000)
+  console.log(moment(ttime).format('DD/MM/YYYY  h:mm a'))
+  //let time =data.date.getTime()+19800000
   var smtpTransport = nodemailer.createTransport({
     service: "gmail",
     port: 587,
@@ -42,7 +45,7 @@ app.post("/api/bookings", (req, res) => {
     text: `
         Dear ${data.parentname},
 
-        ${data.childname}'s class at ${moment(data.date).format('DD/MM/YYYY  h:mm a')} has been successfully booked.
+        ${data.childname}'s class at ${moment(ttime).format('DD/MM/YYYY  h:mm a')} has been successfully booked.
         
         `,
   };
