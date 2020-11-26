@@ -31,8 +31,8 @@ app.post("/api/bookings", (req, res) => {
     service: "gmail",
     port: 587,
     auth: {
-      user: "freelancers.flow@gmail.com",
-      pass: "{Freelancers@123}",
+      user: "myanamahesh786@gmail.com",
+      pass: "gznofzkgelxfvhyx",
     },
   });
   let mailOptions = {

@@ -65,7 +65,7 @@ class Forms extends React.Component {
 				childage: this.state.childage,
 				mobile: this.state.mobile,
 				coursename: this.state.coursenaem,
-				date: this.state.sdate,
+				date: (this.state.sdate),
 				sent: false
 			};
 			if (data) {
