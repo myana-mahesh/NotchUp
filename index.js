@@ -29,7 +29,7 @@ app.post("/api/bookings", (req, res) => {
 
   var smtpTransport = nodemailer.createTransport({
     service: "gmail",
-    port: 465,
+    port: 587,
     auth: {
       user: "freelancers.flow@gmail.com",
       pass: "{Freelancers@123}",
@@ -52,6 +52,8 @@ app.post("/api/bookings", (req, res) => {
       console.log("Error occurs", error);
     } else {
       console.log("Email sent!");
+      window.location.href = 'http://www.google.com';
+			window.open('http://www.google.com');
       //res.sendFile(path.join(__dirname,'/public/sucess.html'));
       res.redirect('/')
     }

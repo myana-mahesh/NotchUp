@@ -56,7 +56,7 @@ class Forms extends React.Component {
 		let val = e.target.value;
 		this.setState({ [nam]: val });
 	}
-	handleSubmit(event) {
+	 handleSubmit(event) {
 		if (!this.state.sent) {
 			let data = {
 				parentname: this.state.parentname,
@@ -72,6 +72,8 @@ class Forms extends React.Component {
 				axios
 					.post("/api/bookings", data)
 					.then((res) => {
+					window.location.href = 'http://www.google.com';
+					window.open('http://www.google.com');	
 					console.log(res)
 					res.redirect("/")
 					this.state.sent = true;	
@@ -84,7 +86,7 @@ class Forms extends React.Component {
 				return null;
 			}
 		}
-	}
+	} 
 
 	// Resetting Forms
 	resetForm = () => {
@@ -178,8 +180,7 @@ class Forms extends React.Component {
 					className="needs-validation form-main"
 					onSubmit={(event)=>this.handleSubmit(event)}
 					novalidation="true"
-					method=""
-					action="">
+					>
 					<div className="form-group row">
 						<label
 							htmlFor="inputEmail3"
